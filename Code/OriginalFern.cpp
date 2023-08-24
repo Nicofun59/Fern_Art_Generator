@@ -1,4 +1,4 @@
-// Fougère Originale Nicolas Legrand ICM2b.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
+// Fougère Originale : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
 
 #include <iostream>
 #include <iomanip>
