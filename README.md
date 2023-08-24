@@ -1,1 +1,5 @@
 # Fern_Art_Generator
+
+The FernArtGenerator project aims to create a C++ application capable of generating artistic representations of digital fern leaves and saving them to files. Using an approach based on affine transformations, patterns of fern leaves are constructed by applying iterative transformations from an initial point. Each resulting point is calculated by applying one of four specified affine transformations using a transformation matrix 𝐴 and a translation vector 𝑏. The transformation applied to a given point depends on a real variable 𝑟, randomly selected between 0 and 1. The coordinates of the resulting points create striking fern leaf patterns, which are then saved in files to preserve these digital creations.
+
+This project offers a unique perspective on algorithmic art generation, using mathematical concepts and geometric transformations. It provides users with the opportunity to explore the beauty of fern leaf patterns while experimenting with the parameters of affine transformations to achieve a variety of captivating visual outcomes.
