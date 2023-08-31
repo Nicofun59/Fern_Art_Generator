@@ -1,4 +1,4 @@
-// Fougère Améliorée Nicolas Legrand ICM2b.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
+// Fougère Améliorée : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
 
 #include <iostream>
 #include <iomanip>
@@ -9,14 +9,19 @@
 using namespace std;
 
 // Structure random
-int seed = static_cast<int> (chrono::system_clock::now().time_since_epoch().count());
+int seed = static_cast<int>(chrono::system_clock::now().time_since_epoch().count());
 default_random_engine generator(seed);
 uniform_real_distribution<double> distribution(0.0, 1);
 double unrand01() { return distribution(generator); }
 
 void initialisation_transformation(double T[] /*Utilisation extérieure*/, double a11, double a12, double a21, double a22, double b1, double b2)
 {
-	T[0] = a11; T[1] = a12; T[2] = a21; T[3] = a22; T[4] = b1; T[5] = b2;
+	T[0] = a11;
+	T[1] = a12;
+	T[2] = a21;
+	T[3] = a22;
+	T[4] = b1;
+	T[5] = b2;
 }
 
 /*void affichage_transformation(double T[])
@@ -32,7 +37,7 @@ void transformation_affine(double p[] /*Tableau de coordonnées du point p, retou
 	p[1] = (x * T[2] + y * T[3]) + T[5]; // Retourne la coordonnée y de p+1
 }
 
-void fougere_numerique(double p[] /*Tableau de coordonnées du point p0*/, int n /*Nombre de points pi*/, double* ptTabX, double* ptTabY /*Tableaux dynamiques des coordonnées des différents points*/)
+void fougere_numerique(double p[] /*Tableau de coordonnées du point p0*/, int n /*Nombre de points pi*/, double *ptTabX, double *ptTabY /*Tableaux dynamiques des coordonnées des différents points*/)
 {
 	double T1[6], T2[6], T3[6], T4[6];
 	initialisation_transformation(T1, 0.85, 0.04, (-0.04), 0.85, 0.0, 1.6);
@@ -40,10 +45,12 @@ void fougere_numerique(double p[] /*Tableau de coordonnées du point p0*/, int n 
 	initialisation_transformation(T3, (-0.15), 0.28, 0.26, 0.24, 0.0, 0.44);
 	initialisation_transformation(T4, 0.0, 0.0, 0.0, 0.16, 0.0, 0.0);
 
-	/*affichage_transformation(T1);
+	/*
+	affichage_transformation(T1);
 	affichage_transformation(T2);
 	affichage_transformation(T3);
-	affichage_transformation(T4);*/
+	affichage_transformation(T4);
+	*/
 
 	ptTabX[0] = p[0];
 	ptTabY[0] = p[1];
@@ -56,13 +63,16 @@ void fougere_numerique(double p[] /*Tableau de coordonnées du point p0*/, int n 
 		{
 			transformation_affine(p, T1);
 		}
-		else if (r < 0.92) {
+		else if (r < 0.92)
+		{
 			transformation_affine(p, T2);
 		}
-		else if (r < 0.99) {
+		else if (r < 0.99)
+		{
 			transformation_affine(p, T3);
 		}
-		else {
+		else
+		{
 			transformation_affine(p, T4);
 		}
 
@@ -71,7 +81,7 @@ void fougere_numerique(double p[] /*Tableau de coordonnées du point p0*/, int n 
 	}
 }
 
-bool fichier_svg(const char* nomFichier, const char* nomSVG)
+bool fichier_svg(const char *nomFichier, const char *nomSVG)
 {
 	ifstream in(nomFichier);
 	ofstream out(nomSVG);
@@ -83,9 +93,19 @@ bool fichier_svg(const char* nomFichier, const char* nomSVG)
 		double xC, yC;
 		char couleur[15];
 
-		cout << endl << "Quelle couleur de fougere souhaitez-vous ?" << endl << endl
-			<< "1: Blue" << endl << "2: Green" << endl << "3: Black" << endl << "4: Red"
-			<< endl << "5: Pink" << endl << "6: Yellow" << endl << "7: Purple" << endl << "8: Orange" << endl << endl;
+		cout << endl
+			 << "Quelle couleur de fougere souhaitez-vous ?" << endl
+			 << endl
+			 << "1: Blue" << endl
+			 << "2: Green" << endl
+			 << "3: Black" << endl
+			 << "4: Red"
+			 << endl
+			 << "5: Pink" << endl
+			 << "6: Yellow" << endl
+			 << "7: Purple" << endl
+			 << "8: Orange" << endl
+			 << endl;
 		cin >> couleur;
 
 		while (in >> xC && in >> yC)
@@ -99,20 +119,21 @@ bool fichier_svg(const char* nomFichier, const char* nomSVG)
 	return false;
 }
 
-bool sauvegarde_fougere(const char* nomFichier, const char* nomSVG, int n, double p0[])
+bool sauvegarde_fougere(const char *nomFichier, const char *nomSVG, int n, double p0[])
 {
 	ofstream out(nomFichier);
 	if (out.good())
 	{
-		double* ptTabX = new double[n + 1];
+		double *ptTabX = new double[n + 1];
 
 		if (ptTabX)
 		{
-			double* ptTabY = new double[n + 1];
+			double *ptTabY = new double[n + 1];
 
 			if (ptTabY)
 			{
-				cout << endl << "Generation des coordonnees des " << n << " points en cours" << endl;
+				cout << endl
+					 << "Generation des coordonnees des " << n << " points en cours" << endl;
 
 				fougere_numerique(p0, n, ptTabX, ptTabY);
 
@@ -121,7 +142,8 @@ bool sauvegarde_fougere(const char* nomFichier, const char* nomSVG, int n, doubl
 					out << setw(12) << ptTabX[i] << setw(12) << ptTabY[i] << endl;
 				}
 
-				cout << endl << "Generation du fichier d'affichage en cours" << endl;
+				cout << endl
+					 << "Generation du fichier d'affichage en cours" << endl;
 
 				fichier_svg(nomFichier, nomSVG);
 
@@ -153,15 +175,20 @@ void main()
 
 	const char nomFichier[128] = "Specimen.dat";
 	char nomSVG[128];
-	cout << endl << "Quel nom souhaitez-vous donner au fichier d'affichage de la fougere (suivi d'un .svg) ?" << endl;
+	cout << endl
+		 << "Quel nom souhaitez-vous donner au fichier d'affichage de la fougere (suivi d'un .svg) ?" << endl;
 	cin >> nomSVG;
 
-	if (sauvegarde_fougere(nomFichier, nomSVG, n, p0)) cout << endl << "Execution et enregistrement reussi" << endl;
-	else cout << "Execution et enregistrement impossible" << endl;
+	if (sauvegarde_fougere(nomFichier, nomSVG, n, p0))
+		cout << endl
+			 << "Execution et enregistrement reussi" << endl;
+	else
+		cout << "Execution et enregistrement impossible" << endl;
 
 	cout << "Fin de l'execution" << endl;
-	cin.get(); cin.get();
-	//return 0;
+	cin.get();
+	cin.get();
+	// return 0;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
